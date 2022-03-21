@@ -1,0 +1,33 @@
+#cloud-config
+
+password: passw0rd          # 设置默认用户密码
+chpasswd: { expire: False } # 是否强制用户修改初始密码
+ssh_pwauth: True            # 是否允许通过ssh访问
+system_info:
+  default_user:
+    name: sysadmin          # 设置默认用户登录名
+
+apt: # 使用中国镜像
+  primary:
+    - arches: [default]
+      uri: http://ftp.cn.debian.org/debian/
+  security:
+    - arches: [default]
+      uri: http://ftp.cn.debian.org/debian-security/
+  sources_list: |
+    deb $PRIMARY $RELEASE main 
+    # deb-src $PRIMARY $RELEASE main
+
+    deb $PRIMARY $RELEASE-updates main
+    # deb-src $PRIMARY $RELEASE-updates main
+
+    # deb $PRIMARY $RELEASE-backports main
+    # deb-src $PRIMARY $RELEASE-backports main
+
+    deb $SECURITY $RELEASE-security main
+    # deb-src $SECURITY $RELEASE-security main
+
+write_files:
+  - path: /etc/sysctl.d/70-disable-ipv6.conf  # 关闭IPv6协议
+    content: |
+      net.ipv6.conf.all.disable_ipv6 = 1

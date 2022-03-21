@@ -1,0 +1,7 @@
+version: 2
+ethernets:
+  enp0s3:
+    match:
+      name: enp0s3
+    addresses:
+      - 192.168.56.11/255.255.255.0

@@ -1,0 +1,5 @@
+{
+	"name": "Cloud Init Environment",
+	"dockerFile": "Dockerfile",
+	"remoteUser": "vscode"
+}
